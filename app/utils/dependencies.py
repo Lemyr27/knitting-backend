@@ -7,8 +7,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db_session
 from app.core.settings import app_settings
-from app.domain.user.exceptions import CredentialsValidateException
-from app.domain.user.schemas import UserDTO
+from app.domain.users.exceptions import CredentialsValidateException
+from app.domain.users.schemas import UserDTO
 from app.utils.unitofwork import UnitOfWork, unit_of_work
 
 _bearer = HTTPBearer(scheme_name='bearer')

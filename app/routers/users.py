@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.user import create_user, login, get_me
+from app.api.users import create_user, login, get_me
 
 router = APIRouter(prefix='/users', tags=['users'])
 

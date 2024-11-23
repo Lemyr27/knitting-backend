@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.post import get_posts, get_post, create_post, update_post, delete_post
+from app.api.posts import get_posts, get_post, create_post, update_post, delete_post
 
 router = APIRouter(prefix='/posts', tags=['posts'])
 

@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import BaseModel
-from app.domain.user.models import User
+from app.domain.users.models import User
 
 
 class Post(BaseModel):

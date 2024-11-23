@@ -1,9 +1,9 @@
 from fastapi import HTTPException
 from starlette import status
 
-from app.domain.post import services
-from app.domain.post.exceptions import CreatorCheckedException
-from app.domain.post.schemas import PostCreateDTO, PostDTO, PostUpdateDTO
+from app.domain.posts import services
+from app.domain.posts.exceptions import CreatorCheckedException
+from app.domain.posts.schemas import PostCreateDTO, PostDTO, PostUpdateDTO
 from app.utils import dependencies
 
 

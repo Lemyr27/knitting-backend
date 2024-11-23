@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from app.domain.user.schemas import UserDTO
+from app.domain.users.schemas import UserDTO
 from app.utils.schemas import BaseSchema
 
 

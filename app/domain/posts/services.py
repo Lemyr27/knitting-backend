@@ -1,6 +1,6 @@
-from app.domain.post.exceptions import CreatorCheckedException
-from app.domain.post.schemas import PostCreateDTO, PostDTO, PostUpdateDTO
-from app.domain.user.schemas import UserDTO
+from app.domain.posts.exceptions import CreatorCheckedException
+from app.domain.posts.schemas import PostCreateDTO, PostDTO, PostUpdateDTO
+from app.domain.users.schemas import UserDTO
 from app.utils.unitofwork import UnitOfWork
 
 

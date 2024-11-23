@@ -3,9 +3,9 @@ from jwt import DecodeError
 from sqlalchemy.exc import NoResultFound
 from starlette import status
 
-from app.domain.user import services
-from app.domain.user.exceptions import CredentialsValidateException, IncorrectUsernameOrPasswordException
-from app.domain.user.schemas import UserCreateDTO, UserDTO, TokenDTO, UserLoginDTO
+from app.domain.users import services
+from app.domain.users.exceptions import CredentialsValidateException, IncorrectUsernameOrPasswordException
+from app.domain.users.schemas import UserCreateDTO, UserDTO, TokenDTO, UserLoginDTO
 from app.utils import dependencies
 
 

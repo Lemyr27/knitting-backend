@@ -4,8 +4,8 @@ import bcrypt
 import jwt
 
 from app.core.settings import app_settings
-from app.domain.user.exceptions import IncorrectUsernameOrPasswordException
-from app.domain.user.schemas import UserDTO, UserCreateDTO, TokenDTO, UserLoginDTO
+from app.domain.users.exceptions import IncorrectUsernameOrPasswordException
+from app.domain.users.schemas import UserDTO, UserCreateDTO, TokenDTO, UserLoginDTO
 from app.utils.unitofwork import UnitOfWork
 
 
