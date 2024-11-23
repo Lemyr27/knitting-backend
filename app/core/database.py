@@ -5,7 +5,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from app.core.settings import app_settings
 
 url = URL.create(
-    'postgresql+asyncpg',
+    app_settings.DB_TYPE,
     app_settings.DB_USER,
     app_settings.DB_PASS,
     app_settings.DB_HOST,
