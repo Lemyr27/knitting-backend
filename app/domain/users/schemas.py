@@ -1,18 +1,29 @@
+from pydantic import Field, EmailStr
+
 from app.utils.schemas import BaseSchema
 
 
-class UserBase(BaseSchema):
-    name: str
-    email: str
+class UserBaseSchema(BaseSchema):
+    username: str = Field(..., min_length=3, max_length=50)
+    password: str = Field(..., min_length=8, max_length=100)
 
 
-class UserCreateDTO(UserBase):
+class UserCreateDTO(UserBaseSchema):
+    email: EmailStr
+    avatar_color: str
+
+
+class UserLoginDTO(UserBaseSchema):
     ...
 
 
-class UserUpdateDTO(UserBase):
-    ...
-
-
-class UserDTO(UserBase):
+class UserDTO(BaseSchema):
     id: int
+    username: str
+    email: EmailStr
+    avatar_color: str
+
+
+class TokenDTO(BaseSchema):
+    access_token: str
+    token_type: str

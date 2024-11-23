@@ -1,25 +1,34 @@
-from sqlalchemy import insert, select
-from sqlalchemy.ext.asyncio import AsyncSession
+from datetime import datetime, timedelta, timezone
 
-from app.domain.users.models import User
-from app.domain.users.schemas import UserCreateDTO, UserDTO
+import bcrypt
+import jwt
+
+from app.core.settings import app_settings
+from app.domain.users.exceptions import IncorrectUsernameOrPasswordException
+from app.domain.users.schemas import UserDTO, UserCreateDTO, TokenDTO, UserLoginDTO
+from app.utils.unitofwork import UnitOfWork
+
+
+async def login(
+    uow: UnitOfWork,
+    dto: UserLoginDTO,
+) -> TokenDTO:
+    user = await uow.users.get_user_by_name(dto.username)
+    if not bcrypt.checkpw(dto.password.encode(), user.password.encode()):
+        raise IncorrectUsernameOrPasswordException()
+
+    expire = datetime.now(timezone.utc) + timedelta(days=30)
+    to_encode = {"sub": user.username, "exp": expire}
+    access_token = jwt.encode(to_encode, app_settings.SECRET_KEY, app_settings.ALGORITHM)
+    return TokenDTO(access_token=access_token, token_type="Bearer")
 
 
 async def create(
-    session: AsyncSession,
+    uow: UnitOfWork,
     dto: UserCreateDTO,
 ) -> UserDTO:
-    data = dto.model_dump()
-    stmt = insert(User).values(**data).returning(User.id)
-    id = (await session.execute(stmt)).scalar_one()
-    await session.commit()
-    model = await session.get_one(User, id)
+    dto.password = bcrypt.hashpw(dto.password.encode(), bcrypt.gensalt()).decode()
+    id = await uow.users.create(**dto.model_dump())
+    await uow.commit()
+    model = await uow.users.get_by_id(id)
     return UserDTO.model_validate(model)
-
-
-async def get(
-    session: AsyncSession,
-) -> list[UserDTO]:
-    stmt = select(User)
-    result = list((await session.execute(stmt)).scalars().all())
-    return [UserDTO.model_validate(u) for u in result]
