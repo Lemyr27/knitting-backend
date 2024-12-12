@@ -1,6 +1,7 @@
 from typing import Any
 
 from app.core.database import async_session
+from app.domain.categories.repositories import CategoryRepository
 from app.domain.details.repositories import DetailRepository
 from app.domain.posts.repositories import PostRepository
 from app.domain.users.repositories import UserRepository
@@ -15,6 +16,7 @@ class UnitOfWork:
         self.posts = PostRepository(self.session)
         self.schemas = SchemaRepository(self.session)
         self.details = DetailRepository(self.session)
+        self.categories = CategoryRepository(self.session)
         return self
 
     async def __aexit__(self, *args):
